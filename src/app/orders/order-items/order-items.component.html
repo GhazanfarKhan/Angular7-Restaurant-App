@@ -1,0 +1,58 @@
+<h4>
+  Order Food Item
+</h4>
+<h4></h4>
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+  <input type="hidden" name="OrderItemID" #OrderItemID="ngModel" [(ngModel)]="formData.OrderItemID">
+  <input type="hidden" name="OrderID" #OrderID="ngModel" [(ngModel)]="formData.OrderID">
+  <input type="hidden" name="ItemName" #ItemName="ngModel" [(ngModel)]="formData.ItemName">
+  <div class="form-group">
+    <label>Food Item
+    </label>
+    <select class="form-control" name="ItemID" #ItemID="ngModel" [(ngModel)]="formData.ItemID" (change)="updatePrice($event.target)"
+    [class.is-invalid]="!isValid && formData.ItemID == 0"
+    >
+        <option value="0">-Select-</option>
+        <option *ngFor="let item of itemList" [ngValue]="item.ItemID">{{item.Name}}</option>
+      </select>
+ 
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Price</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            $
+          </div>
+        </div>
+        <input class="form-control" name="Price" #Price="ngModel" [(ngModel)]="formData.Price" readonly>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Quantity</label>
+      <input class="form-control" name="Quantity" #Quantity="ngModel" [(ngModel)]="formData.Quantity" (keyup)="updateTotal()"
+      [class.is-invalid]="!isValid && formData.Quantity == 0"
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Total</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          $
+        </div>
+      </div>
+      <input class="form-control" name="Total" #Total="ngModel" [(ngModel)]="formData.Total" readonly>
+    </div>
+  </div>
+  <div class="form-group">
+      <button type="submit" class="btn btn-dark">
+        <i class="fa fa-database"></i> Submit
+      </button>
+      <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+          <i class="fa fa-close"></i> Close
+        </button>
+    </div>
+</form>
